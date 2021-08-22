@@ -10,22 +10,22 @@
  * string convert(string s, int numRows);
  */
 
- /**
-  * 示例 1:
-  * 输入: s = "LEETCODEISHIRING", numRows = 3
-  * 输出: "LCIRETOESIIGEDHN"
-  * 
-  * 示例 2:
-  * 输入: s = "LEETCODEISHIRING", numRows = 4
-  * 输出: "LDREOEIIECIHNTSG"
-  * 解释:
-  * L     D     R
-  * E   O E   I I
-  * E C   I H   N
-  * T     S     G
-  */
+/**
+ * 示例 1:
+ * 输入: s = "LEETCODEISHIRING", numRows = 3
+ * 输出: "LCIRETOESIIGEDHN"
+ *
+ * 示例 2:
+ * 输入: s = "LEETCODEISHIRING", numRows = 4
+ * 输出: "LDREOEIIECIHNTSG"
+ * 解释:
+ * L     D     R
+ * E   O E   I I
+ * E C   I H   N
+ * T     S     G
+ */
 
-  /**
+/**
  * @param {string} s
  * @param {number} numRows
  * @return {string}
@@ -41,7 +41,7 @@
 //   return JSON.stringify(arr)
 //     .replace(/(\],\[)|(",")|[\[\]\"]/g, '')
 // };
-var convert = function (s, numRows) {
+const convert = (s, numRows) => {
   if (numRows === 1) return s
   const rows = new Array(numRows).fill('')
   const n = 2 * numRows - 2
@@ -52,4 +52,6 @@ var convert = function (s, numRows) {
   return rows.join('')
 }
 
+console.log(convert('LEETCODEISHIRING', 3))
+console.log(convert('LEETCODEISHIRING', 4))
 console.log(convert('PAYPALISHIR,ING', 3))
