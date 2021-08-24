@@ -30,6 +30,8 @@
  * @return {string[]}
  */
 const letterCombinations = function (digits) {
+  if (!digits) return []
+  // 映射
   const enums = {
     2: ['a', 'b', 'c'],
     3: ['d', 'e', 'f'],
@@ -40,23 +42,63 @@ const letterCombinations = function (digits) {
     8: ['t', 'u', 'v'],
     9: ['w', 'x', 'y', 'z']
   }
-  if (!digits) return []
-  let num = 0
-  for (const item of digits) {
-    enums[item] && (num += enums[item].length)
-  }
-  const res = new Array(num).fill('')
-  for (const item of digits) {
-    if (!enums[item]) continue
-    for (let i = 0; i < num; i++) {
-      res[i] += enums[item][i % enums[item].length]
-    }
+  // 系数
+  const items = digits.split('').map(e => enums[e].length)
+  // 枚举个数
+  const times = items.reduce((acc, cur) => acc * cur)
+  const res = new Array(times).fill('')
+  for (let i = 0; i < times; i++) {
+    res[i] = getIndex(i, items)
+      .map((e, j) => enums[digits[j]][e])
+      .join('')
   }
   return res
 }
 
+function getIndex(i, data) {
+  const len = data.length
+  const res = new Array(len).fill(0)
+  let num = i
+  for (let j = len - 1; j >= 0; j--) {
+    num = num.toString(data[j])
+    res[j] = +num.slice(-1)
+    num = parseInt(+num.slice(0, -1), data[j])
+  }
+  return res
+}
+
+var letterCombinations = function (digits) {
+  if (!digits) return []
+  let digLen = digits.length
+  const numToChar = {
+    2: 'abc',
+    3: 'def',
+    4: 'ghi',
+    5: 'jkl',
+    6: 'mno',
+    7: 'pqrs',
+    8: 'tuv',
+    9: 'wxyz'
+  }
+  let result = []
+
+  const back = (str = '', index = 0) => {
+    if (str.length === digLen) {
+      result.push(str)
+      return
+    }
+    for (let i = index; i < digLen; i++) {
+      for (let j = 0, l = numToChar[digits[i]].length; j < l; j++) {
+        back(str + numToChar[digits[i]][j], i + 1)
+      }
+    }
+  }
+  back('')
+
+  return result
+}
+
 console.log(letterCombinations('23'))
-console.log(letterCombinations('123'))
-console.log(letterCombinations('1'))
-console.log(letterCombinations(''))
+console.log(letterCombinations('79'))
+console.log(letterCombinations('29'))
 console.log(letterCombinations('22'))
