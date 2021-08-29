@@ -55,10 +55,9 @@ const letterCombinations = function (digits) {
   return res
 }
 
-function getIndex(i, data) {
+function getIndex(num, data) {
   const len = data.length
   const res = new Array(len).fill(0)
-  let num = i
   for (let j = len - 1; j >= 0; j--) {
     num = num.toString(data[j])
     res[j] = +num.slice(-1)
