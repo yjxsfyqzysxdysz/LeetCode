@@ -112,4 +112,4 @@ console.log(compress(['a', 'a', 'b', 'b', 'c', 'c', 'c'])) // 6
 console.log(compress(['a'])) // 1
 console.log(compress(['a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'])) // 4
 console.log(compress(['a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'])) // 4
-console.log(compress(['p', 'p', 'p', 'p', 'm', 'm', 'b', 'b', 'b', 'b', 'b', 'u', 'u', 'r', 'r', 'u', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'u', 'u', 'u', 'u', 'a', 'a', 'u', 'u', 'r', 'r', 'r', 's', 's', 'a', 'a', 'y', 'y', 'y', 'g', 'g', 'g', 'g', 'g'])) //
+console.log(compress(['p', 'p', 'p', 'p', 'm', 'm', 'b', 'b', 'b', 'b', 'b', 'u', 'u', 'r', 'r', 'u', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'u', 'u', 'u', 'u', 'a', 'a', 'u', 'u', 'r', 'r', 'r', 's', 's', 'a', 'a', 'y', 'y', 'y', 'g', 'g', 'g', 'g', 'g']))

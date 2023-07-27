@@ -11,6 +11,16 @@
  * 所以返回 [0, 1]
  */
 
+ /**
+  * 输入：nums = [3,2,4], target = 6
+  * 输出：[1,2]
+  */
+
+  /**
+   * 输入：nums = [3,3], target = 6
+   * 输出：[0,1]
+   */
+
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -47,6 +57,17 @@ var twoSum = function (nums, target) {
 //     if (mapRes.hasOwnProperty(target - nums[i]) && mapRes[target - nums[i]] - i) {
 //       return [i, parseInt(mapRes[target - nums[i]])]
 //     }
+//   }
+// }
+
+// var twoSum = function (nums, target) {
+//   const obj = {}
+//   nums.forEach((e, i) => obj[e] = i)
+//   for (let i = 0, len = nums.length, num, val; i < len; i++) {
+//     num = target - nums[i]
+//     if (!obj.hasOwnProperty(num)) continue
+//     val = +obj[num]
+//     if (val != i) return [i, val]
 //   }
 // }
 
