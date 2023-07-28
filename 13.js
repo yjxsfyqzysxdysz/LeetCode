@@ -74,5 +74,27 @@ var romanToInt = function (s) {
   return str
 }
 
+// var romanToInt = function (s) {
+//   const list = {
+//     I: 1,
+//     V: 5,
+//     X: 10,
+//     L: 50,
+//     C: 100,
+//     D: 500,
+//     M: 1000
+//   }
+//   s = s.toLocaleUpperCase()
+//   let str = 0
+//   for (let i = 0, len = s.length; i < len; i++) {
+//     if (list[s[i]] < list[s[i + 1]]) {
+//       str -= list[s[i]]
+//     } else {
+//       str += list[s[i]]
+//     }
+//   }
+//   return str
+// }
+
 let a = romanToInt('MCMXCIV')
 console.log(a)
