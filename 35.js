@@ -26,18 +26,44 @@
  * @param {number} target
  * @return {number}
  */
+// var searchInsert = function (nums, target) {
+//   let index = 0
+//   for (let i = 0, len = nums.length; i < len; i++) {
+//     if (nums[i] < target) {
+//       index = i
+//       if (i === len -1) index++
+//     } else {
+//       index = i
+//       break
+//     }
+//   }
+//   return index
+// }
+
+// var searchInsert = function (nums, target) {
+//   const len = nums.length
+//   for (let i = 0; i < len; i++) {
+//     if (nums[i] >= target) return i
+//   }
+//   return len
+// }
+
 var searchInsert = function (nums, target) {
-  let index = 0
-  for (let i = 0, len = nums.length; i < len; i++) {
-    if (nums[i] < target) {
-      index = i
-      if (i === len -1) index++
+  let l = 0
+  let r = nums.length - 1
+
+  while (l <= r) {
+    const mid = Math.floor((l + r) / 2)
+
+    if (nums[mid] === target) {
+      return mid
+    } else if (nums[mid] < target) {
+      l = mid + 1
     } else {
-      index = i
-      break
+      r = mid - 1
     }
   }
-  return index
+  return l
 }
 
 console.log(searchInsert([1], 2))

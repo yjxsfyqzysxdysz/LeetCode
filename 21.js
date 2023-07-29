@@ -66,8 +66,8 @@ var mergeTwoLists = function (l1, l2) {
     current = current.next
   }
   // 当一方完成时，将另一方剩下的全部加进去
-  current.next = l1 ? l1 : l2
-  current= null
+  current.next = l1 || l2
+  current = null
   return l3.next
 }
 
@@ -85,6 +85,6 @@ function line(arr) {
   tmp = null
   return item
 }
-let l1 = line([1, 2, 4,5,6])
+let l1 = line([1, 2, 4, 5, 6])
 let l2 = line([1, 1, 2])
 console.log(JSON.stringify(mergeTwoLists(l1, l2), null, 2))

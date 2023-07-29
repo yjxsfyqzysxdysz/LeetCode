@@ -43,20 +43,36 @@
 //   }
 // }
 
+// var longestCommonPrefix = function (strs) {
+//   let len = strs.length
+//   if (!len) return ''
+//   let s1 = strs[0]
+//   for (let i = 0; i < s1.length; i++) {
+//     let temp = s1[i]
+//     for (let j = 0; j < len; j++) {
+//       if (temp !== strs[j][i]) {
+//         return s1.substring(0, i)
+//       }
+//     }
+//   }
+//   return s1
+// }
+
 var longestCommonPrefix = function (strs) {
-  let len = strs.length
-  if (!len) return ''
-  let s1 = strs[0]
-  for (let i = 0; i < s1.length; i++) {
-    let temp = s1[i]
-    for (let j = 0; j < len; j++) {
-      if (temp !== strs[j][i]) {
-        return s1.substring(0, i)
+    const str = [...new Set(strs)]
+    const tag = str[0]
+    if (str.length === 1) return tag
+    let i = 0
+    loop: for (let len = str.length, le = tag.length; i < le; i++) {
+      for (let j = 1; j < len; j++) {
+        if (tag[i] !== str[j][i]) {
+          break loop
+        }
       }
     }
-  }
-  return s1
+    return tag.slice(0, i) || ''
 }
 
-const res = longestCommonPrefix(['flower', 'flow', 'flight'])
+// const res = longestCommonPrefix(['flower', 'flow', 'flight'])
+const res = longestCommonPrefix(['a', 'ac'])
 console.log(res)

@@ -55,21 +55,23 @@
 // }
 
 var isValid = function (s) {
-  const m = {
-    '(': ')',
-    '[': ']',
-    '{': '}'
-  }
   const stack = []
-  for (const k of s) {
-    if (m[k]) {
-      stack.push(k)
-    } else {
-      if (k !== m[stack.pop()]) return false
+  const enu = ['[', '{', '(']
+  const enu2 = {
+    ']': '[',
+    '}': '{',
+    ')': '('
+  }
+  for (let e of s) {
+    if (enu.includes(e)) {
+      stack.push(e)
+    } else if (enu2[e] !== stack.pop()) {
+      return false
     }
   }
   return !stack.length
 }
+
 const a = isValid('}')
 console.log(a)
 
