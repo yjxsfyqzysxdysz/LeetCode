@@ -56,8 +56,8 @@ var generate = function (numRows) {
   const res = [[1], [1, 1]]
   for (let i = 2; i < numRows; i++) {
     let tmp = []
-    for (let j = 0, arr = res[i - 1], len = arr.length - 1; j < len; j++) {
-      tmp.push(arr[j] + arr[j + 1])
+    for (let j = 1, arr = res[i - 1]; j < i; j++) {
+      tmp.push(arr[j] + arr[j - 1])
     }
     res.push([1, ...tmp, 1])
   }
