@@ -31,29 +31,52 @@
 //   nums1.sort((a, b) => a - b)
 // }
 
+// var merge = function (nums1, m, nums2, n) {
+//   for (let i = 0, j = 0; i < nums1.length; i++) {
+//     for (; j < n; j++) {
+//       if (i >= m && !nums1[i]) {
+//         nums1.splice(i, nums1.length - i, ...nums2.slice(j))
+//         return
+//       } else if (nums1[i] >= nums2[j]) {
+//         nums1.splice(i, 0, nums2[j])
+//         nums1.pop()
+//         if (nums1[i] === nums2[j]) {
+//           j++
+//         }
+//       }
+//       if (nums1[i] <= nums2[j]) {
+//         break
+//       }
+//     }
+//   }
+// }
+
 var merge = function (nums1, m, nums2, n) {
-  for (let i = 0, j = 0; i < nums1.length; i++) {
-    for (; j < n; j++) {
-      if (i >= m && !nums1[i]) {
-        nums1.splice(i, nums1.length - i, ...nums2.slice(j))
-        return
-      } else if (nums1[i] >= nums2[j]) {
-        nums1.splice(i, 0, nums2[j])
-        nums1.pop()
-        if (nums1[i] === nums2[j]) {
-          j++
-        }
-      }
-      if (nums1[i] <= nums2[j]) {
-        break
-      }
+  let i = 0,
+    j = 0
+  while (i < m && j < n) {
+    const n2 = nums2[j]
+    if (nums1[i] >= n2) {
+      nums1.splice(i, 0, n2)
+      j++
+      m++
     }
+    i++
   }
+  nums1.splice(m, nums1.length, ...(nums2.slice(j) || ''))
 }
 
 let nums1 = [1, 2, 3, 0, 0, 0],
   m = 3,
   nums2 = [2, 5, 6],
   n = 3
+// let nums1 = [1],
+//   m = 1,
+//   nums2 = [],
+//   n = 0
+// let nums1 = [2, 0],
+//   m = 1,
+//   nums2 = [1],
+//   n = 1
 merge(nums1, m, nums2, n)
 console.log(nums1)
