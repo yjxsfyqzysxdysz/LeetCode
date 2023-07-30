@@ -23,6 +23,7 @@
  * @return {number}
  */
 var singleNumber = function (nums) {
+  // ^=是异或运算，相同取0，不同取1
   return nums.reduce((tal, cur) => (tal ^= cur))
 }
 
