@@ -42,6 +42,15 @@ function readLocal() {
   }
 }
 
+// 读取本地文件夹
+function readdir(params) {
+  try {
+    return fs.readdirSync('./')
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 // 保存本地文件
 function saveLocal(data) {
   const dataString = regStringFilter(JSON.stringify(data))
@@ -91,11 +100,7 @@ function dataFilter(data) {
   data.forEach(e => {
     tmp[e.index - 1] = e
   })
-  data.splice(
-    0,
-    data.length,
-    ...tmp.filter(e => e)
-  )
+  data.splice(0, data.length, ...tmp.filter(e => e))
 }
 
 // html 解析
@@ -141,15 +146,25 @@ function getQueryData() {
   } else {
     list = getQueryData()
   }
-  // console.log('list', list)
   if (!list.length) return
   // 获取预存数据
   const localData = JSON.parse(readLocal())
-  // console.log(localData)
   localData.push(...list)
-  // console.log(localData)
   // 数据整理
   dataFilter(localData)
   // 数据写入
   saveLocal(localData)
 })()
+
+// ;(function () {
+//   const localData = JSON.parse(readLocal())
+//   const dirList = readdir().filter(e => /\.js$/.test(e))
+//   const tmp = localData.map(e => !dirList.includes(e.index + '.js') && e).filter(e => e)
+//   tmp.forEach(({ index, name }) => {
+//     const data = `/**\n * ${name}\n *\n * \n */\n`
+//     fs.writeFile(`${index}.js`, data, err => {
+//       if (err) throw err
+//       console.log('The file has been saved!')
+//     })
+//   })
+// })()
