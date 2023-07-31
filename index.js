@@ -33,7 +33,7 @@ const MODAL = false
 function readLocal() {
   try {
     fs.accessSync(DATA_PATH, fs.constants.F_OK)
-    console.log('exists')
+    // console.log('exists')
     return fs.readFileSync(DATA_PATH, 'utf-8') || '[]'
   } catch (error) {
     console.log(`${DATA_PATH} does not exist`)
@@ -112,8 +112,8 @@ function getHTMLData() {
 
 // query 解析
 // post接口：https://leetcode.cn/graphql/
+const req = {}
 function getQueryData() {
-  const req = {}
   return (
     req?.data?.problemsetQuestionList?.questions
       .map(({ difficulty, frontendQuestionId, titleCn, topicTags, paidOnly, titleSlug }) => {
