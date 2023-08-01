@@ -27,7 +27,7 @@
 
 var daysBetweenDates = function (date1, date2) {
   const isLeapYear = year => (!(year % 4) && year % 100) || !(year % 400)
-  const mouth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  const month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   const [dateMax, dateMin] = date1 > date2 ? [date1, date2] : [date2, date1]
   const [y1, m1, d1] = dateMax.split('-')
   const [y2, m2, d2] = dateMin.split('-')
@@ -40,22 +40,22 @@ var daysBetweenDates = function (date1, date2) {
     }
     // 发生所在年的月
     for (let i = +m2, isLeap = isLeapYear(y2); i < 12; i++) {
-      date += i === 1 && isLeap ? 29 : mouth[i]
+      date += i === 1 && isLeap ? 29 : month[i]
     }
     for (let i = 0, isLeap = isLeapYear(y1); i < m1 - 1; i++) {
-      date += i === 1 && isLeap ? 29 : mouth[i]
+      date += i === 1 && isLeap ? 29 : month[i]
     }
   } else {
     // 同一年 的月
     for (let i = +m2, isLeap = isLeapYear(y1); i < m1 - 1; i++) {
-      date += i === 1 && isLeap ? 29 : mouth[i]
+      date += i === 1 && isLeap ? 29 : month[i]
     }
   }
   // 日
   if (y1 === y2 && m1 === m2) {
     date += d1 - d2
   } else {
-    date += (+m2 === 2 && isLeapYear(y2) ? 29 : mouth[m2 - 1]) - d2 + +d1
+    date += (+m2 === 2 && isLeapYear(y2) ? 29 : month[m2 - 1]) - d2 + +d1
   }
   return date
 }
