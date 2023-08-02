@@ -36,6 +36,46 @@
  * @param {string[]} words
  * @return {number}
  */
+// var uniqueMorseRepresentations = function (words) {
+//   const key = [
+//     '.-',
+//     '-...',
+//     '-.-.',
+//     '-..',
+//     '.',
+//     '..-.',
+//     '--.',
+//     '....',
+//     '..',
+//     '.---',
+//     '-.-',
+//     '.-..',
+//     '--',
+//     '-.',
+//     '---',
+//     '.--.',
+//     '--.-',
+//     '.-.',
+//     '...',
+//     '-',
+//     '..-',
+//     '...-',
+//     '.--',
+//     '-..-',
+//     '-.--',
+//     '--..'
+//   ]
+//   const set = new Set()
+//   words.forEach(e => {
+//     let str = ''
+//     for (const k of e) {
+//       str += key[k.charCodeAt() - 97]
+//     }
+//     set.add(str)
+//   })
+//   return set.size
+// }
+
 var uniqueMorseRepresentations = function (words) {
   const key = [
     '.-',
@@ -65,15 +105,15 @@ var uniqueMorseRepresentations = function (words) {
     '-.--',
     '--..'
   ]
-  const set = new Set()
-  words.forEach(e => {
-    let str = ''
-    for (const k of e) {
-      str += key[k.charCodeAt() - 97]
-    }
-    set.add(str)
-  })
-  return set.size
+  return new Set(
+    words.map(e => {
+      let str = ''
+      for (const k of e) {
+        str += key[k.charCodeAt() - 97]
+      }
+      return str
+    })
+  ).size
 }
 
 console.log(uniqueMorseRepresentations(['a']))

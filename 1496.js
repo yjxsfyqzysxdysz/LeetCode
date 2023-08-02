@@ -27,8 +27,7 @@
 var isPathCrossing = function (path) {
   let row = 0,
     col = 0,
-    stack = new Set()
-  stack.add(`${row}-${col}`)
+    stack = new Set([`${row}-${col}`])
   for (const e of path) {
     switch (e) {
       case 'N':

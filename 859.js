@@ -33,7 +33,7 @@
 var buddyStrings = function (s, goal) {
   if (s.length !== goal.length) return false
   if (s === goal) {
-    return [...new Set(s.split(''))].length !== s.length
+    return new Set(s.split('')).size !== s.length
   }
   let index = 0
   const preList = []

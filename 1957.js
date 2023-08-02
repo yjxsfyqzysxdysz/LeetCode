@@ -44,10 +44,7 @@
 
 // var makeFancyString = function (s) {
 //   for (let i = 0, len = s.length - 2; i < len; i++) {
-//     const size = new Set()
-//       .add(s[i])
-//       .add(s[i + 1])
-//       .add(s[i + 2]).size
+//     const size = new Set([s[i]], s[i + 1], s[i + 2]]).size
 //     if (size === 1) {
 //       s = s.slice(0, i) + s.slice(i + 1)
 //       i--
