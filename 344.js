@@ -21,8 +21,15 @@
  * @param {character[]} s
  * @return {void} Do not return anything, modify s in-place instead.
  */
+// var reverseString = function (s) {
+//   for (let i = 0, len = s.length, mid = len / 2, j = len - 1; i < mid; i++, j--) {
+//     ;[s[i], s[j]] = [s[j], s[i]]
+//   }
+// }
+
 var reverseString = function (s) {
-  for (let i = 0, len = s.length, mid = len / 2, j = len - 1; i < mid; i++, j--) {
-    ;[s[i], s[j]] = [s[j], s[i]]
-  }
+  return s.splice(0, s.length, ...s.reverse())
 }
+
+console.log(reverseString(['h', 'e', 'l', 'l', 'o']))
+console.log(reverseString(['H', 'a', 'n', 'n', 'a', 'h']))
