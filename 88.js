@@ -51,19 +51,42 @@
 //   }
 // }
 
+// var merge = function (nums1, m, nums2, n) {
+//   let i = 0,
+//     j = 0
+//   while (i < m && j < n) {
+//     const n2 = nums2[j]
+//     if (nums1[i] >= n2) {
+//       nums1.splice(i, 0, n2)
+//       j++
+//       m++
+//     }
+//     i++
+//   }
+//   nums1.splice(m, nums1.length, ...(nums2.slice(j) || ''))
+// }
+
 var merge = function (nums1, m, nums2, n) {
+  const arr = []
   let i = 0,
     j = 0
-  while (i < m && j < n) {
-    const n2 = nums2[j]
-    if (nums1[i] >= n2) {
-      nums1.splice(i, 0, n2)
-      j++
-      m++
+  while (i < m || j < n) {
+    if (i === m) {
+      arr.push(...nums2.slice(j, n))
+      j = n
+    } else if (j === n) {
+      arr.push(...nums1.slice(i, m))
+      i = m
+    } else if (nums1[i] === nums2[j]) {
+      arr.push(nums1[i++])
+      arr.push(nums2[j++])
+    } else if (nums1[i] < nums2[j]) {
+      arr.push(nums1[i++])
+    } else if (nums1[i] > nums2[j]) {
+      arr.push(nums2[j++])
     }
-    i++
   }
-  nums1.splice(m, nums1.length, ...(nums2.slice(j) || ''))
+  return nums1.splice(0, m + n, ...arr)
 }
 
 let nums1 = [1, 2, 3, 0, 0, 0],
