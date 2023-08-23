@@ -26,12 +26,12 @@
 var matrixScore = function (A) {
   let map = new Map()
   const row = A.length
-  const cow = A[0].length
+  const col = A[0].length
   const rowMid = Math.ceil(row / 2)
   // 按行循环
   for (let i = 0; i < row; i++) {
     // 案列循环
-    for (let j = 0; j < cow; j++) {
+    for (let j = 0; j < col; j++) {
       let count = map.get(j) || 0
       // 如果一行的第一列为 0, 则取反
       if (!j && !A[i][j]) {
@@ -45,7 +45,7 @@ var matrixScore = function (A) {
       m.set(k, row - v)
     }
   })
-  return Array.from(map.values()).reduce((t, v, i) => (t += Math.pow(2, cow - i - 1) * v), 0)
+  return Array.from(map.values()).reduce((t, v, i) => (t += Math.pow(2, col - i - 1) * v), 0)
 }
 
 // 贪心算法
