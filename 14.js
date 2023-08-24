@@ -58,21 +58,32 @@
 //   return s1
 // }
 
+// var longestCommonPrefix = function (strs) {
+//   const str = [...new Set(strs)]
+//   const tag = str[0]
+//   if (str.length === 1) return tag
+//   let i = 0
+//   loop: for (let len = str.length, le = tag.length; i < le; i++) {
+//     for (let j = 1; j < len; j++) {
+//       if (tag[i] !== str[j][i]) {
+//         break loop
+//       }
+//     }
+//   }
+//   return tag.slice(0, i) || ''
+// }
+
 var longestCommonPrefix = function (strs) {
-    const str = [...new Set(strs)]
-    const tag = str[0]
-    if (str.length === 1) return tag
-    let i = 0
-    loop: for (let len = str.length, le = tag.length; i < le; i++) {
-      for (let j = 1; j < len; j++) {
-        if (tag[i] !== str[j][i]) {
-          break loop
-        }
-      }
+  const target = strs[0]
+  if (strs.length === 1) return target
+  for (let i = 0, len = target.length; i < len; i++) {
+    const status = strs.slice(1).every(e => e[i] === target[i])
+    if (!status) {
+      return i == 0 ? '' : target.slice(0, i)
     }
-    return tag.slice(0, i) || ''
+  }
+  return target
 }
 
-// const res = longestCommonPrefix(['flower', 'flow', 'flight'])
-const res = longestCommonPrefix(['a', 'ac'])
-console.log(res)
+console.log(longestCommonPrefix(['flower', 'flow', 'flight']))
+console.log(longestCommonPrefix(['a', 'ac']))
