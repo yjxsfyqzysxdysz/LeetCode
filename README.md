@@ -2,8 +2,14 @@
 note
 
 # 创建新文件
-new-item 67.js -type file 
+```shell
+# 创建指令
+new-item 67.js -type file
+# 缩写
 ni 67.js -type file
+# 再缩写
+ni 67.js
+```
 
 # 题目
 

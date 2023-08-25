@@ -76,7 +76,7 @@ function dataHandler(data) {
   data.forEach(e => {
     if (new RegExp(regTitle, 'i').test(e)) {
       const [index, name] = e.split('. ')
-      obj.index = +index
+      obj.index = isFinite(index) ? +index : index
       obj.name = name
     } else if (new RegExp(regTagPre).test(e)) {
       obj.tag.push(e.replace(regTagPre, ''))
@@ -96,11 +96,16 @@ function dataHandler(data) {
 
 // 数据去重、排序
 function dataFilter(data) {
+  const set = new Set()
   const tmp = []
   data.forEach(e => {
-    tmp[e.index - 1] = e
+    if (!set.has(e.index)) {
+      set.add(e.index)
+      tmp.push(e)
+    }
   })
-  data.splice(0, data.length, ...tmp.filter(e => e))
+  tmp.sort((a, b) => (`${a.index}`.padStart(4, '0') > `${b.index}`.padStart(4, '0') ? 1 : -1))
+  data.splice(0, data.length, ...tmp)
 }
 
 // html 解析
@@ -124,7 +129,7 @@ function getQueryData() {
       .map(({ difficulty, frontendQuestionId, titleCn, topicTags, paidOnly, titleSlug }) => {
         if (paidOnly) return
         return {
-          index: +frontendQuestionId,
+          index: isFinite(frontendQuestionId) ? +frontendQuestionId : frontendQuestionId,
           name: titleCn,
           titleSlug,
           difficulty: difficultyEmu[difficulty],
