@@ -35,26 +35,84 @@
  * @param {number} val
  * @return {number}
  */
-var removeElement = function (nums, val) {
-  let index = nums.length
-  while (index + 1) {
-    if (nums[index] === val) nums.splice(index, 1)
-    index--
-  }
-  return nums.length
-}
+// var removeElement = function (nums, val) {
+//   let index = nums.length
+//   while (index + 1) {
+//     if (nums[index] === val) nums.splice(index, 1)
+//     index--
+//   }
+//   return nums.length
+// }
 
+// 双指针
+// var removeElement = function (nums, val) {
+//   let index = 0
+//   for (let i = 0, len = nums.length; i < len; i++) {
+//     if (nums[i] !== val) {
+//       if (index !== i) {
+//         nums[index] = nums[i]
+//       }
+//       index++
+//     }
+//   }
+//   return index
+// }
+
+// 双指针
+// var removeElement = function (nums, val) {
+//   let index = 0
+//   for (let i = 0; i < nums.length; i++) {
+//     if (nums[i] !== val) {
+//       nums[index++] = nums[i]
+//     }
+//   }
+//   return index
+// }
+
+// 双指针
+// var removeElement = function (nums, val) {
+//   let low = 0,
+//     fast = 0,
+//     len = nums.length
+//   while (fast < len) {
+//     // low == fast && nums[] != val
+//     //    low++ fast++
+//     // low != fast && nums[fast] == val
+//     //    fast++
+//     // low != fast && nums[fast] != val
+//     //    nums[low] = nums[fast]; fast++ low++
+//     if (low === fast) {
+//       if (nums[fast] !== val) {
+//         low++
+//       }
+//     } else if (nums[fast] !== val) {
+//       nums[low] = nums[fast]
+//       low++
+//     }
+//     fast++
+//   }
+//   return low
+// }
+
+// 双指针
 var removeElement = function (nums, val) {
-  let index = 0
-  for (let i = 0, len = nums.length; i < len; i++) {
-    if (nums[i] !== val) {
-      if (index !== i) {
-        nums[index] = nums[i]
-      }
-      index++
+  let left = 0,
+    right = nums.length
+  while (left < right) {
+    if (nums[left] === val) {
+      nums[left] = nums[right - 1]
+      right--
+    } else {
+      left++
     }
   }
-  return index
+  return left
 }
 
-console.log(removeElement([3, 2, 2, 3], 2))
+console.log(removeElement([4, 5], 4)) // 1
+console.log(removeElement([2], 1)) // 1
+console.log(removeElement([1, 1], 1)) // 0
+console.log(removeElement([1], 1)) // 0
+console.log(removeElement([1, 2], 1)) // 1
+console.log(removeElement([3, 2, 2, 3], 3)) // 2
+console.log(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2)) // 5
