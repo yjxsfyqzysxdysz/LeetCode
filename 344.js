@@ -13,7 +13,7 @@
  * 输出：["h","a","n","n","a","H"]
  *
  * 提示：
- * 1 <= s.length <= 105
+ * 1 <= s.length <= 10^5
  * s[i] 都是 ASCII 码表中的可打印字符
  */
 
@@ -25,11 +25,19 @@
 //   for (let i = 0, len = s.length, mid = len / 2, j = len - 1; i < mid; i++, j--) {
 //     ;[s[i], s[j]] = [s[j], s[i]]
 //   }
+//   return s
 // }
 
 var reverseString = function (s) {
-  return s.splice(0, s.length, ...s.reverse())
+  for (let i = 0, j = s.length - 1; i < j; i++, j--) {
+    ;[s[i], s[j]] = [s[j], s[i]]
+  }
+  return s
 }
+
+// var reverseString = function (s) {
+//   return s.splice(0, s.length, ...s.reverse())
+// }
 
 console.log(reverseString(['h', 'e', 'l', 'l', 'o']))
 console.log(reverseString(['H', 'a', 'n', 'n', 'a', 'h']))
