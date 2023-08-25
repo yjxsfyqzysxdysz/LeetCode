@@ -1,5 +1,5 @@
 /**
- * 杨辉三角
+ * 118. 杨辉三角
  *
  * 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
  * 在杨辉三角中，每个数是它左上方和右上方的数的和。
@@ -14,12 +14,20 @@
  *   [1,3,3,1],
  *  [1,4,6,4,1]
  * ]
+ *
+ * 示例 2:
+ * 输入: numRows = 1
+ * 输出: [[1]]
+ *
+ * 提示:
+ * 1 <= numRows <= 30
  */
 
 /**
  * @param {number} numRows
  * @return {number[][]}
  */
+// 数学解
 // C(n,m) = n! / (m! * (n - m)!)
 // var generate = function (numRows) {
 //   const ret = []
@@ -36,6 +44,7 @@
 // 错位相加
 // var generate = function (numRows) {
 //   /**
+//    * 第 5 行 = 第 4 行 错位相加
 //    * 1 3 3 1 0
 //    * 0 1 3 3 1
 //    * --------
@@ -50,18 +59,34 @@
 //   return res
 // }
 
-var generate = function (numRows) {
-  if (numRows === 1) return [[1]]
-  if (numRows === 2) return [[1], [1, 1]]
-  const res = [[1], [1, 1]]
-  for (let i = 2; i < numRows; i++) {
-    let tmp = []
-    for (let j = 1, arr = res[i - 1]; j < i; j++) {
-      tmp.push(arr[j] + arr[j - 1])
-    }
-    res.push([1, ...tmp, 1])
-  }
-  return res
-}
+// var generate = function (numRows) {
+//   if (numRows === 1) return [[1]]
+//   if (numRows === 2) return [[1], [1, 1]]
+//   const res = [[1], [1, 1]]
+//   for (let i = 2; i < numRows; i++) {
+//     let tmp = []
+//     for (let j = 1, arr = res[i - 1]; j < i; j++) {
+//       tmp.push(arr[j] + arr[j - 1])
+//     }
+//     res.push([1, ...tmp, 1])
+//   }
+//   return res
+// }
+
+// var generate = function (numRows) {
+//   if (numRows === 1) return [[1]]
+//   if (numRows === 2) return [[1], [1, 1]]
+//   const res = [[1], [1, 1]]
+//   for (let i = 3; i <= numRows; i++) {
+//     const tmp = []
+//     const pre = res[i - 2]
+//     for (let j = 0; j < i - 2; j++) {
+//       tmp.push(pre[j] + pre[j + 1])
+//     }
+//     res.push([1, ...tmp, 1])
+//   }
+//   return res
+// }
 
 console.log(generate(5))
+// console.log(generate(1))
