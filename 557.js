@@ -1,5 +1,5 @@
 /**
- * 反转字符串中的单词 III
+ * 557. 反转字符串中的单词 III
  *
  * 给定一个字符串 s ，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
  *
@@ -12,7 +12,7 @@
  * 输出："doG gniD"
  *
  * 提示：
- * 1 <= s.length <= 5 * 104
+ * 1 <= s.length <= 5 * 10^4
  * s 包含可打印的 ASCII 字符。
  * s 不包含任何开头或结尾空格。
  * s 里 至少 有一个词。
@@ -23,12 +23,30 @@
  * @param {string} s
  * @return {string}
  */
+// var reverseWords = function (s) {
+//   return s.split(' ').map(e => e.split('').reverse().join('')).join(' ')
+// }
+
 var reverseWords = function (s) {
-  return s
-    .trim()
-    .split(' ')
-    .map(e => e.split('').reverse().join(''))
-    .join(' ')
+  let str = '',
+    start = 0,
+    end = 0,
+    n = s.length
+  s += ' '
+  while (start <= n) {
+    if (s[end] == ' ') {
+      // [start, end)
+      for (let i = end - 1; i >= start; i--) {
+        str += s[i]
+      }
+      str += ' '
+      end++
+      start = end
+    } else {
+      end++
+    }
+  }
+  return str.trimEnd()
 }
 
 console.log(reverseWords("Let's take LeetCode contest"))
