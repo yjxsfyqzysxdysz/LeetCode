@@ -26,19 +26,6 @@
 // var merge = function (intervals) {
 //   intervals.sort((a, b) => a[0] - b[0])
 //   const arr = [intervals[0]]
-//   for (let i = 1, len = intervals.length; i < len; i++) {
-//     if (arr.at(-1)[1]>= intervals[i][0]) {
-//       arr.at(-1)[1] = Math.max(arr.at(-1)[1], intervals[i][1])
-//     } else {
-//       arr.push(intervals[i])
-//     }
-//   }
-//   return arr
-// }
-
-// var merge = function (intervals) {
-//   intervals.sort((a, b) => a[0] - b[0])
-//   const arr = [intervals[0]]
 //   for (let i = 1, index = 0, len = intervals.length; i < len; i++) {
 //     if (arr[index][1] >= intervals[i][0]) {
 //       arr[index][1] = Math.max(arr[index][1], intervals[i][1])
@@ -50,19 +37,34 @@
 //   return arr
 // }
 
+// var merge = function (intervals) {
+//   intervals.sort((a, b) => a[0] - b[0])
+//   const arr = []
+//   for (let i = 0, j = 1, len = intervals.length; j <= len; ) {
+//     const rightMaxVal = intervals.slice(i, j).reduce((res, [, right]) => Math.max(res, right), 0)
+//     if (j !== len && rightMaxVal >= intervals[j][0]) {
+//       j++
+//     } else if (j - i === 1) {
+//       arr.push(intervals[i])
+//       i = j++
+//     } else {
+//       arr.push([intervals[i][0], rightMaxVal])
+//       i = j++
+//     }
+//   }
+//   return arr
+// }
+
 var merge = function (intervals) {
-  intervals.sort((a, b) => a[0] - b[0])
-  const arr = []
-  for (let i = 0, j = 1, len = intervals.length; j <= len; ) {
-    const rightMaxVal = intervals.slice(i, j).reduce((res, [, right]) => Math.max(res, right), 0)
-    if (j !== len && rightMaxVal >= intervals[j][0]) {
-      j++
-    } else if (j - i === 1) {
-      arr.push(intervals[i])
-      i = j++
-    } else {
-      arr.push([intervals[i][0], rightMaxVal])
-      i = j++
+  intervals.sort(([a], [b]) => a - b)
+  const arr = [intervals[0]]
+  for (let i = 1; i < intervals.length; i++) {
+    const [curPre, curNext] = intervals[i]
+    const lastNext = arr.at(-1)[1]
+    if (lastNext < curPre) {
+      arr.push([curPre, curNext])
+    } else if (lastNext < curNext) {
+      arr.at(-1)[1] = curNext
     }
   }
   return arr
@@ -75,40 +77,32 @@ console.log(
     [3, 5]
   ])
 )
-// console.log(
-//   merge([
-//     [2, 3],
-//     [4, 5],
-//     [6, 7],
-//     [8, 9],
-//     [1, 10]
-//   ])
-// )
-// console.log(
-//   merge([
-//     [1, 4],
-//     [2, 3]
-//   ])
-// )
-// console.log(
-//   merge([
-//     [1, 3],
-//     [2, 6],
-//     [8, 10],
-//     [15, 18]
-//   ])
-// )
-// console.log(
-//   merge([
-//     [1, 3],
-//     [2, 6],
-//     [8, 10],
-//     [15, 18]
-//   ])
-// )
-// console.log(
-//   merge([
-//     [1, 4],
-//     [4, 5]
-//   ])
-// )
+console.log(
+  merge([
+    [2, 3],
+    [4, 5],
+    [6, 7],
+    [8, 9],
+    [1, 10]
+  ])
+)
+console.log(
+  merge([
+    [1, 4],
+    [2, 3]
+  ])
+)
+console.log(
+  merge([
+    [1, 3],
+    [2, 6],
+    [8, 10],
+    [15, 18]
+  ])
+)
+console.log(
+  merge([
+    [1, 4],
+    [4, 5]
+  ])
+)
