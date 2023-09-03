@@ -129,7 +129,11 @@ function getQueryData() {
       .map(({ difficulty, frontendQuestionId, titleCn, topicTags, paidOnly, titleSlug }) => {
         if (paidOnly) return
         return {
-          index: isFinite(frontendQuestionId) ? +frontendQuestionId : frontendQuestionId,
+          index: isFinite(frontendQuestionId)
+            ? +frontendQuestionId
+            : frontendQuestionId.includes('LCP')
+            ? frontendQuestionId.replace(/\s/, ' 0')
+            : frontendQuestionId,
           name: titleCn,
           titleSlug,
           difficulty: difficultyEmu[difficulty],
@@ -140,11 +144,21 @@ function getQueryData() {
   )
 }
 
-;(function () {
+const arg = process.argv.slice(2)
+const [event, ...param] = arg
+
+if (!event) {
+  scan()
+} else {
+  build()
+}
+
+// 给 data.json 写数据
+function scan() {
   let list = []
   if (MODAL) {
     // 解析 html
-    // const orgData = getHTMLData()
+    const orgData = getHTMLData()
     if (!orgData) return
     // 处理原始数据
     list = dataHandler(orgData)
@@ -154,22 +168,37 @@ function getQueryData() {
   if (!list.length) return
   // 获取预存数据
   const localData = JSON.parse(readLocal())
+  const oldLen = localData.length
   localData.push(...list)
   // 数据整理
   dataFilter(localData)
+  console.log(`新增 ${localData.length - oldLen}`)
   // 数据写入
   saveLocal(localData)
-})()
+}
 
-// ;(function () {
-//   const localData = JSON.parse(readLocal())
-//   const dirList = readdir().filter(e => /\.js$/.test(e))
-//   const tmp = localData.map(e => !dirList.includes(e.index + '.js') && e).filter(e => e)
-//   tmp.forEach(({ index, name }) => {
-//     const data = `/**\n * ${name}\n *\n * \n */\n`
-//     fs.writeFile(`${index}.js`, data, err => {
-//       if (err) throw err
-//       console.log('The file has been saved!')
-//     })
-//   })
-// })()
+// 根据 data.json 创建文件
+function build() {
+  const localData = JSON.parse(readLocal())
+  const dirList = readdir().filter(e => /\.js$/.test(e))
+  const tmp = localData
+    .map(e => !dirList.includes(e.index + '.js') && e)
+    .filter(
+      e =>
+        e &&
+        isFinite(e.index) &&
+        e.tag.reduce((status, cur) => {
+          if (status < 0) return status
+          if (cur === '数组') return 1
+          if (['树', '矩阵', '二叉树'].includes(cur)) return -1
+        }, 0) > 0
+    )
+  console.log(`新增 ${tmp.length}`)
+  tmp.forEach(({ index, name }) => {
+    const data = `/**\n * ${name}\n *\n * \n */\n`
+    fs.writeFile(`${index}.js`, data, err => {
+      if (err) throw err
+      console.log('The file has been saved!')
+    })
+  })
+}
