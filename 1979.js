@@ -37,12 +37,37 @@
  * @param {number[]} nums
  * @return {number}
  */
+// var findGCD = function (nums) {
+//   const max = Math.max(...nums)
+//   const min = Math.min(...nums)
+//   let num = max
+//   while (max % num || min % num) num--
+//   return num
+// }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
 var findGCD = function (nums) {
-  const max = Math.max(...nums)
   const min = Math.min(...nums)
-  let num = max
-  while (max % num || min % num) num--
-  return num
+  const max = Math.max(...nums)
+  return gcd(min, max)
+}
+
+function gcd(a, b) {
+  if (a === b) return a
+
+  // 都是偶数
+  if ((a & 1) === 0 && (b & 1) === 0) return gcd(a / 2, b / 2) * 2
+  // a偶数b奇数
+  else if ((a & 1) === 0 && (b & 1) !== 0) return gcd(a / 2, b)
+  // a奇数b偶数
+  else if ((a & 1) !== 0 && (b & 1) === 0) return gcd(a, b / 2)
+  else {
+    if (a < b) [a, b] = [b, a]
+    return gcd(a - b, b)
+  }
 }
 
 console.log(findGCD([2, 5, 6, 9, 10]))
