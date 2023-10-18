@@ -47,59 +47,75 @@
  * @param {string} s
  * @return {string}
  */
-var sortString = function (s) {
-  let res = ''
-  let obj = {}
-  // Object 会对数字自动排序，纯字母不会
-  for (const e of s) {
-    if (obj.hasOwnProperty(e.charCodeAt())) {
-      obj[e.charCodeAt()]++
-    } else {
-      obj[e.charCodeAt()] = 1
-    }
-  }
-  while (JSON.stringify(obj) !== '{}') {
-    for (let i = 0, key = Object.keys(obj); i < key.length; i++) {
-      res += String.fromCharCode(key[i])
-      obj[key[i]]--
-      if (!obj[key[i]]) {
-        delete obj[key[i]]
-      }
-    }
-    for (let key = Object.keys(obj), i = key.length - 1; i >= 0; i--) {
-      res += String.fromCharCode(key[i])
-      obj[key[i]]--
-      if (!obj[key[i]]) {
-        delete obj[key[i]]
-      }
-    }
-  }
-  return res
-}
+// var sortString = function (s) {
+//   let res = ''
+//   let obj = {}
+//   // Object 会对数字自动排序，纯字母不会
+//   for (const e of s) {
+//     if (obj.hasOwnProperty(e.charCodeAt())) {
+//       obj[e.charCodeAt()]++
+//     } else {
+//       obj[e.charCodeAt()] = 1
+//     }
+//   }
+//   while (JSON.stringify(obj) !== '{}') {
+//     for (let i = 0, key = Object.keys(obj); i < key.length; i++) {
+//       res += String.fromCharCode(key[i])
+//       obj[key[i]]--
+//       if (!obj[key[i]]) {
+//         delete obj[key[i]]
+//       }
+//     }
+//     for (let key = Object.keys(obj), i = key.length - 1; i >= 0; i--) {
+//       res += String.fromCharCode(key[i])
+//       obj[key[i]]--
+//       if (!obj[key[i]]) {
+//         delete obj[key[i]]
+//       }
+//     }
+//   }
+//   return res
+// }
 
 /**
  * @param {string} s
  * @return {string}
  */
-var sortStrings = function (s) {
-  // a - z
-  let ps = new Array(26).fill(0)
-  for (let i = 0; i < s.length; i++) {
-    ps[s[i].charCodeAt() - 97]++
+// var sortStrings = function (s) {
+//   // a - z
+//   let ps = new Array(26).fill(0)
+//   for (let i = 0; i < s.length; i++) {
+//     ps[s[i].charCodeAt() - 97]++
+//   }
+//   let res = ''
+//   while (s.length - res.length) {
+//     for (let i = 0; i < 26; i++) {
+//       if (!ps[i]) continue
+//       ps[i]--
+//       res += String.fromCharCode(i + 97)
+//     }
+//     for (let i = 25; i >= 0; i--) {
+//       if (!ps[i]) continue
+//       ps[i]--
+//       res += String.fromCharCode(i + 97)
+//     }
+//   }
+//   return res
+// }
+
+var singleNumber = function (nums) {
+  const freq = new Map()
+  for (const num of nums) {
+    freq.set(num, (freq.get(num) || 0) + 1)
   }
-  let res = ''
-  while (s.length - res.length) {
-    for (let i = 0; i < 26; i++) {
-      if (!ps[i]) continue
-      ps[i]--
-      res += String.fromCharCode(i + 97)
-    }
-    for (let i = 25; i >= 0; i--) {
-      if (!ps[i]) continue
-      ps[i]--
-      res += String.fromCharCode(i + 97)
+  let ans = 0
+  for (const [num, occ] of freq.entries()) {
+    if (occ === 1) {
+      ans = num
+      break
     }
   }
-  return res
+  return ans
 }
+
 console.log(sortStrings('aaaabbbbcccc'))
